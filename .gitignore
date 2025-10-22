@@ -1,0 +1,52 @@
+
+# Build and derived data
+build/
+DerivedData/
+
+# Xcode user settings
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# Workspace user data
+*.xcworkspace/xcuserdata/
+!default.xcworkspace/contents.xcworkspacedata
+
+# Swift Package Manager
+/.build/
+.swiftpm/
+Package.resolved
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Archives and logs
+*.xcarchive
+*.xcactivitylog
+*.log
+
+# Symbolicated crash reports
+*.dSYM
+*.dSYM.zip
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# Thumbnails
+._.DS_Store
+Thumbs.db
+
+# Temporary / swap files
+*.swp
+*.tmp
+*.orig
+*~
+
+# Environment / config
+.env
+.env.*
