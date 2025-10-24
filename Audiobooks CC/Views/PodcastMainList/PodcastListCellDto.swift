@@ -13,14 +13,23 @@ struct PodcastListCellDto {
     let publisher: String
     let description: String
     let thumbnail: String
-    let isFavourite: Bool
+    let isFavorite: Bool
     
     init(podcast: PodcastServerData, isFavorite: Bool) {
         self.id = podcast.id
         self.title = podcast.title
         self.publisher = podcast.publisher
+        self.description = podcast.cleanDescription()
+        self.thumbnail = podcast.thumbnail
+        self.isFavorite = isFavorite
+    }
+    
+    init(podcast: Self, isFavorite: Bool) {
+        self.id = podcast.id
+        self.title = podcast.title
+        self.publisher = podcast.publisher
         self.description = podcast.description
         self.thumbnail = podcast.thumbnail
-        self.isFavourite = isFavorite
+        self.isFavorite = isFavorite
     }
 }

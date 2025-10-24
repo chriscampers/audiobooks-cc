@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct PodcastListView: View {
-    @StateObject var viewModel = PodcastListViewModel(podcastRepository: PodcastApiRepository(),
-                                                      favoritePodcastRepository: UserPreferences())
+    @StateObject var viewModel: PodcastListViewModel
     
+    init(podcastRepository: PodcastRepository,
+         favoritesRepository: FavoritePodcastRepository) {
+        _viewModel = StateObject(wrappedValue: PodcastListViewModel(podcastRepository: podcastRepository,
+                                                                    favoritePodcastRepository: favoritesRepository))
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -20,9 +25,28 @@ struct PodcastListView: View {
                 case .loaded(let cells):
                     podcastListView(cells: cells)
                 case.error(_):
-                    Text("error")
+                    Text("Error Page")
                 }
-            }.navigationTitle("Podcasts")
+            }.onAppear {
+                Task {
+                    await viewModel.onAppear()
+                }
+            }
+            .navigationTitle("Podcasts")
+            .alert(item: $viewModel.alertError) { alert in
+                switch alert {
+                case .noPodcastsLoaded, .issueLoadingNewPage:
+                    return Alert(
+                        title: Text("Could not load podcasts"),
+                        primaryButton: .default(Text("Retry"), action: {
+                            Task {
+                                await viewModel.loadNextPage()
+                            }
+                        }),
+                        secondaryButton: .cancel()
+                    )
+                }
+            }
         }
     }
     
@@ -39,7 +63,8 @@ struct PodcastListView: View {
     
     private func podcastListView(cells: [PodcastListCellDto]) -> some View {
         List(cells.indices, id: \.self) { index in
-            NavigationLink(destination: EmptyView()) {
+            NavigationLink(destination: PodcastDetailView(podcast: cells[index],
+                                                          favoritesRepository: UserPreferences.shared)) {
                 VStack {
                     PodcastListCellView(cell: cells[index])
                         .onAppear {
@@ -52,6 +77,7 @@ struct PodcastListView: View {
                     }
                 }
             }
+            .navigationLinkIndicatorVisibility(.hidden)
             .listRowSeparator(index == 0 ? .hidden : .visible, edges: .top)
         }
         .listStyle(.plain)
@@ -69,8 +95,8 @@ struct PodcastListView: View {
 }
 
 #Preview {
-    PodcastListView(viewModel: PodcastListViewModel(podcastRepository: MockPodcastRepository(),
-                                                    favoritePodcastRepository: UserPreferences()))
+    // PodcastListView(viewModel: PodcastListViewModel(podcastRepository: MockPodcastRepository(),
+                                                   // favoritePodcastRepository: UserPreferences.shared))
 }
 
 private class MockPodcastRepository: PodcastRepository {

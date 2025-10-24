@@ -10,7 +10,7 @@ import PodcastAPI
 
 
 /*
- The PodcastAPI client has its own error type enum. I think it would be smart to log them appropriately.
+ The PodcastAPI client has its own error type enum. I think it would be a good idea to log them appropriately.
  e.g., Connection or rate-limit errors could be logged in internal client logs,
  but auth-related errors could be more pressing and logged in a way that notifies developers better.
  
@@ -18,22 +18,23 @@ import PodcastAPI
  200 success
  400 something wrong on your end (client side errors), e.g., missing required parameters.
  401 wrong api key, or your account is suspended.
- 404 endpoint not exist, or podcast / episode not exist.
+ 404 endpoint does not exist, or podcast / episode not exist.
  429 for FREE plan, exceeding the quota limit; or for all plans, sending too many requests too fast and exceeding the rate limit.
  500 something wrong on our end (unexpected server errors).
 */
 
-class PodcastApiRepository: PodcastRepository {
+class PodcastWebClient: PodcastRepository {
     enum PodcastApiParameters: String {
         case page = "page"
         case region = "region"
         case safeMode = "safe_mode"
     }
     
-    private let client: PodcastApiType = PodcastAPI.Client(
-        apiKey: "",
-        synchronousRequest: false
-    )
+    private let client: PodcastApiType
+    
+    init(client: PodcastApiType = PodcastAPI.Client(apiKey: "", synchronousRequest: false)) {
+        self.client = client
+    }
     
     func fetchBestPodcasts(page: Int) async throws -> BestPodcastsServerResponse {
         try await withCheckedThrowingContinuation { continuation in
@@ -44,7 +45,9 @@ class PodcastApiRepository: PodcastRepository {
             parameters[PodcastApiParameters.region.rawValue] = "us"
             parameters[PodcastApiParameters.safeMode.rawValue] = "0"
             
-            // TODO: Chris - this SPM package api is mehhh, should probably use my own urlsession implementation
+            // TODO: Chris - this SPM package api is mehhh, in hindsight I would write my own urlsession implementation
+            // Using generics in order to pass the expected response type so that it could be a reusable solution for more than a single API call
+            // Also their client fetch class "ApiResponse" is not unit test/mock friendly, since it doesn't provide the best podcast response data in a concrete class or struct but just json string.
             client.fetchBestPodcasts(parameters: parameters) { response in
                 if let error = response.error {
                     Logger.log(error.localizedDescription)

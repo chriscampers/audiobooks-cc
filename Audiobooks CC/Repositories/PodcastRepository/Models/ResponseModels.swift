@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Dev Note: I used ai to help generate the boilerplate models below
+// Dev Note: I used ai to help generate the boilerplate models below, used it to parse the entire response from the mock data
 // MARK: - PodcastResponse
 struct BestPodcastsServerResponse: Codable, Sendable {
     let id: Int
@@ -93,6 +93,10 @@ struct PodcastServerData: Codable, Sendable {
         case audioLengthSec = "audio_length_sec"
         case website, lookingFor = "looking_for"
         case thumbnail
+    }
+    
+    func cleanDescription() -> String {
+        return description.removingHTMLTags
     }
 }
 
