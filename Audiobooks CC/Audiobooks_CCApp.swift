@@ -11,7 +11,7 @@ import SwiftUI
 struct Audiobooks_CCApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PodcastListView()
         }
     }
 }

@@ -16,9 +16,8 @@ protocol FavouritePodcastRepository: Sendable {
 class UserPreferences: FavouritePodcastRepository {
     static let shared = UserPreferences()
     
-    /// TODO: This should be persisted using some sort of storage container that writes to the disk ie: SQLite and
-    /// synced to the server but since that is out of scope I implented a Set of id's that are held in memory using a
-    /// set since its O(1) for lookup/adding/removing
+    /// DEV NOTE: This should be persisted using some sort of storage container that writes to the disk ie: SQLite and
+    /// synced to the server but since that is out of scope I implented a Set of id's that are held in memory since a A set is O(1) for lookup/adding/removing
     private var favouritePodcastIds: Set<String> = []
 
     func isPodcastFavorited(_ podcastId: String) -> Bool {

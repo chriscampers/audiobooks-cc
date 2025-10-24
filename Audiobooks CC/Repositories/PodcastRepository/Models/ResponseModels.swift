@@ -9,7 +9,7 @@ import Foundation
 
 // Dev Note: I used ai to help generate the boilerplate models below
 // MARK: - PodcastResponse
-struct PodcastResponse: Codable, Sendable {
+struct BestPodcastsServerResponse: Codable, Sendable {
     let id: Int
     let hasNext: Bool
     let previousPageNumber: Int?
@@ -19,7 +19,7 @@ struct PodcastResponse: Codable, Sendable {
     let pageNumber: Int
     let total: Int
     let listennotesURL: String
-    let podcasts: [PodcastData]
+    let podcasts: [PodcastServerData]
     let parentID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -38,7 +38,7 @@ struct PodcastResponse: Codable, Sendable {
 }
 
 // MARK: - Podcast
-struct PodcastData: Codable, Sendable {
+struct PodcastServerData: Codable, Sendable {
     let hasGuestInterviews: Bool
     let updateFrequencyHours: Int?
     let email: String?
@@ -46,7 +46,7 @@ struct PodcastData: Codable, Sendable {
     let listenScore: Int?
     let listenScoreGlobalRank: String?
     let isClaimed: Bool
-    let extra: ExtraLinksData
+    let extra: ExtraLinksServerData
     let explicitContent: Bool
     let itunesID: Int?
     let rss: String?
@@ -66,7 +66,7 @@ struct PodcastData: Codable, Sendable {
     let title: String
     let audioLengthSec: Int?
     let website: String?
-    let lookingFor: LookingForData
+    let lookingFor: LookingForServerData
     let thumbnail: String
 
     enum CodingKeys: String, CodingKey {
@@ -97,7 +97,7 @@ struct PodcastData: Codable, Sendable {
 }
 
 // MARK: - ExtraLinks
-struct ExtraLinksData: Codable, Sendable {
+struct ExtraLinksServerData: Codable, Sendable {
     let spotifyURL: String?
     let amazonMusicURL: String?
     let linkedinURL: String?
@@ -128,7 +128,7 @@ struct ExtraLinksData: Codable, Sendable {
 }
 
 // MARK: - LookingFor
-struct LookingForData: Codable, Sendable {
+struct LookingForServerData: Codable, Sendable {
     let cohosts: Bool
     let sponsors: Bool
     let crossPromotion: Bool

@@ -35,7 +35,7 @@ class PodcastApiRepository: PodcastRepository {
         synchronousRequest: false
     )
     
-    func fetchBestPodcasts(page: Int) async throws -> PodcastResponse {
+    func fetchBestPodcasts(page: Int) async throws -> BestPodcastsServerResponse {
         try await withCheckedThrowingContinuation { continuation in
             
             var parameters: [String: String] = [:]
@@ -44,7 +44,7 @@ class PodcastApiRepository: PodcastRepository {
             parameters[PodcastApiParameters.region.rawValue] = "us"
             parameters[PodcastApiParameters.safeMode.rawValue] = "0"
             
-            // TODO: Chris - this api spm is mehhh, should probably use my own urlsession implementation
+            // TODO: Chris - this SPM package api is mehhh, should probably use my own urlsession implementation
             client.fetchBestPodcasts(parameters: parameters) { response in
                 if let error = response.error {
                     Logger.log(error.localizedDescription)
@@ -52,7 +52,7 @@ class PodcastApiRepository: PodcastRepository {
                 } else {
                     if let json = response.toJson() {
                         do {
-                            let response = try self.decodeResponse(PodcastResponse.self, data: json.rawData())
+                            let response = try self.decodeResponse(BestPodcastsServerResponse.self, data: json.rawData())
                             continuation.resume(returning: response)
                         } catch {
                             Logger.log(error.localizedDescription)

@@ -6,5 +6,5 @@
 //
 
 protocol PodcastRepository: Sendable {
-    func fetchBestPodcasts(page: Int) async throws -> PodcastResponse
+    func fetchBestPodcasts(page: Int) async throws -> BestPodcastsServerResponse
 }
