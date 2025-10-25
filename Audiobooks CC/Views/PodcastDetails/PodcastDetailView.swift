@@ -73,5 +73,6 @@ struct PodcastDetailView: View {
 }
 
 #Preview {
-    // PodcastDetailView()
+    PodcastDetailView(podcast: PodcastDetailCellDto(podcast: PodcastServerData(hasGuestInterviews: false, updateFrequencyHours: 0, email: "", id: "", listenScore: 0, listenScoreGlobalRank: "", isClaimed: false, extra: ExtraLinksServerData(spotifyURL: "", amazonMusicURL: "", linkedinURL: "", url1: "", twitterHandle: nil, wechatHandle: nil, instagramHandle: nil, patreonHandle: nil, url2: nil, facebookHandle: nil, url3: nil, youtubeURL: ""), explicitContent: false, itunesID: nil, rss: nil, description: "test", publisher: "", totalEpisodes: 1, hasSponsors: false, earliestPubDateMS: nil, latestPubDateMS: nil, image: "www.test.com", country: "us", type: "", genreIDs: [], language: "", latestEpisodeID: nil, listennotesURL: "", title: "title", audioLengthSec: nil, website: nil, lookingFor: LookingForServerData(cohosts: false, sponsors: false, crossPromotion: false, guests: false), thumbnail: "www.google.com"),
+                                                    isFavorite: false), favoritesRepository: UserPreferences())
 }

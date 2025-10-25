@@ -20,7 +20,7 @@ struct PodcastDetailViewModelTests {
            viewModel.toggleFavorite()
 
            #expect(viewModel.podcast.isFavorite == true)
-           #expect(await mockRepo.isPodcastFavorited(dto.id) == true)
+           #expect(mockRepo.isPodcastFavorited(dto.id) == true)
        }
 
        @Test("toggleFavorite() removes podcast when already favorited")
@@ -33,7 +33,7 @@ struct PodcastDetailViewModelTests {
            viewModel.toggleFavorite()
 
            #expect(viewModel.podcast.isFavorite == false)
-           #expect(await mockRepo.isPodcastFavorited(dto.id) == false)
+           #expect(mockRepo.isPodcastFavorited(dto.id) == false)
        }
 
        @Test("toggleFavorite() flips favorite state each time")
