@@ -1,5 +1,5 @@
 //
-//  WebClientRequester.swift
+//  WebClient.swift
 //  Audiobooks CC
 //
 //  Created by Chris Campanelli on 2025-10-22.

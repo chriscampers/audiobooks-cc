@@ -6,6 +6,4 @@ Future Consideration/Dev Notes
 - A temporary artificial delay was added to simulate slower network conditions. Search for "DEV NOTE: Delay" in the codebase to locate and remove it.
 - The API data models were initially generated using AI to expedite boilerplate setup.
 - The shimmer loading effect was sourced from markiv/SwiftUI-Shimmer. https://github.com/markiv/SwiftUI-Shimmer/
-
-
-
+- Project requirement was "The list should support pagination, loading 10 items at a time." I didn't see support in the api to limit response to 10 items so I left it at 20. If mandatory, client could be easily changed to reduce down to 10 items per page in memory. 

@@ -33,7 +33,7 @@
 		CE74C9D82EA81056005BDACD /* Audiobooks CC */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			explicitFileTypes = {
-				Views/PodcastMainList/PodcastListViewModel.swift = sourcecode.swift;
+				Views/PodcastList/PodcastListViewModel.swift = sourcecode.swift;
 			};
 			path = "Audiobooks CC";
 			sourceTree = "<group>";

@@ -23,6 +23,7 @@ class PodcastWebRepository: PodcastRepository {
     
     func fetchBestPodcasts(page: Int) async throws -> BestPodcastsServerResponse {
         // should be matching user region to listennotes supported regions found in the following API, for now just use US region https://www.listennotes.com/api/docs/?lang=kotlin&test=1#get-api-v2-regions
+        // Can also match language param make sure podcast can be listened to in the users langauge
         var parameters: [String: String] = [:]
         parameters[PodcastApiParameters.region.rawValue] = "us"
         parameters[PodcastApiParameters.safeMode.rawValue] = "0"
